@@ -1,28 +1,41 @@
-(function(){
-  const buttons = document.querySelectorAll('.counterBtn')
-  let count= 0
+const prevBtn = document.querySelector('.prevBtn');
+const nextBtn = document.querySelector('.nextBtn');
+const counter = document.querySelector('#counter');
 
+let index = 1;
+index = index + 1;
+counter.textContent = index;
 
-  //Add event listeners and functionailty to each button  
-  buttons.forEach(function(button){
-    button.addEventListener('click', function(){
-      if (button.classList.contains('prevBtn')){
-        count--
-      } else if (button.classList.contains('nextBtn')){
-        count++
-      }
+colorChange();
 
-      //Select the counter text
-      const counter = document.querySelector('#counter')
-      counter.textContent = count
+function colorChange() {
+    if (index >= 1) {
+        counter.style.color = 'green';
+    }
+    else if (index <= -1) {
+        counter.style.color = 'red';
+    }
+    else {
+        counter.style.color = '#333333';
+    }
+}
 
-      if (count < 0 ){
-        counter.style.color = 'red'
-      } else if (count > 0){
-        counter.style.color = 'green'
-      } else {
-        counter.style.color = '#333333'
-      }
-    })
-  })
-})()
+if (prevBtn) {
+    prevBtn.addEventListener('click', () => {
+        index = index - 1;
+        counter.textContent = index;
+        //alert('Событие гроз');
+        colorChange();
+    });
+}
+
+if (nextBtn) {
+    nextBtn.addEventListener('click', {
+        handleEvent: function (event) {
+            index = index + 1;
+            counter.textContent = index;
+            //alert('Событие handler');
+            colorChange();
+        }
+    });
+}
